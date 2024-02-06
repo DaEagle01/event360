@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils"
-import { CalendarCheck2, CalendarClock, Home, UserCog } from "lucide-react"
+import { CalendarCheck2, CalendarClock, UserCog } from "lucide-react"
 import { NavLink } from "react-router-dom"
 
 const AdminSidebar = () => {

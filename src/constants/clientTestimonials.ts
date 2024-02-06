@@ -5,8 +5,9 @@ import youtubeLogo from "../assets/images/ourCustomers/youtube-6.svg";
 import amazonLogo from "../assets/images/ourCustomers/logo-amazon.svg";
 import googleLogo from "../assets/images/ourCustomers/google-1-1.svg";
 import clientImage1 from "../assets/images/ourCustomers/clientImage1.avif";
+import { TClientTestimonial } from "@/types/ClientTestimonial";
 
-export const clientTestimonials = [
+export const clientTestimonials: TClientTestimonial[] = [
   {
     name: "Annette Black",
     role: "Chief Chairman",

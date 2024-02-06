@@ -9,10 +9,11 @@ import { ServicesTable } from './ServicesTable'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useGetServices } from '@/api/admin/service/service.hook'
 import axios from 'axios'
-
+import { TService, TServiceInput } from '@/types/Service'
 
 const Services = () => {
     const { isDialogOpen, openDialog, closeDialog, defaultState } = useDialogState();
+    const defData: TService = defaultState as TService;
     const [features, setFeatures] = useState(['']);
     const [services, setServices] = useState({
         name: "",
@@ -28,7 +29,7 @@ const Services = () => {
     }])
     const queryClient = useQueryClient();
     const { mutateAsync: postService } = useMutation({
-        mutationFn: (data) => {
+        mutationFn: (data: TServiceInput) => {
             return axios.post('https://event360-eta.vercel.app/api/v1/services', data)
         },
         onSuccess: () => {
@@ -36,8 +37,8 @@ const Services = () => {
         }
     })
     const { mutateAsync: updateService } = useMutation({
-        mutationFn: ({ id, data }) => {
-            return axios.patch(`https://event360-eta.vercel.app/api/v1/services/${id}`, data)
+        mutationFn: (data: TService) => {
+            return axios.patch(`https://event360-eta.vercel.app/api/v1/services/${data._id}`, { ...services, features })
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['services'] })
@@ -46,8 +47,8 @@ const Services = () => {
 
     useEffect(() => {
         if (defaultState) {
-            setServices(defaultState)
-            setFeatures(defaultState.features)
+            setServices(defData)
+            setFeatures(defData.features)
         }
     }, [defaultState])
 
@@ -73,8 +74,7 @@ const Services = () => {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        const data = { ...services, features }
-        await postService(data);
+        await postService({ ...services, features });
         closeDialog();
         setServices({ name: "", description: "", image: "" });
         setFeatures([""]);
@@ -82,8 +82,7 @@ const Services = () => {
 
     const handleUpdate = async (e: FormEvent) => {
         e.preventDefault();
-        const data = { ...services, features }
-        await updateService({ id: defaultState?._id, data: data });
+        await updateService(defData);
         closeDialog();
         setServices({ name: "", description: "", image: "" });
         setFeatures([""]);
@@ -146,7 +145,7 @@ const Services = () => {
                                     onChange={handleServicesInput}
                                 />
                             </div>
-                            {features.map((feature, index) => (
+                            {features?.map((feature, index) => (
                                 <div key={index} className="grid grid-cols-12 items-center gap-2">
                                     <Label className="col-span-3" htmlFor="features" >
                                         {index === 0 && "Features"}
@@ -182,8 +181,8 @@ const Services = () => {
                                         </Button>
                                     </DialogClose>
                                 </DialogClose>
-                                <Button type="submit" onClick={defaultState?.name ? handleUpdate : handleSubmit}>
-                                    {defaultState?.name ? "Update Service" : "Add Service"}
+                                <Button type="submit" onClick={defData?.name ? handleUpdate : handleSubmit}>
+                                    {defData?.name ? "Update Service" : "Add Service"}
                                 </Button>
                             </DialogFooter>
                         </form>

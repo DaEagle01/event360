@@ -5,3 +5,10 @@ export type TService = {
   description: string;
   features: string[];
 };
+
+export type TServiceInput = {
+  name: string;
+  image: string;
+  description: string;
+  features: string[];
+};

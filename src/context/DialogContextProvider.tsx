@@ -1,14 +1,8 @@
 import useDialog from '@/hooks/useDialog';
+import { ModalContextType } from '@/types/ModalContextType';
 import { ReactNode, createContext } from 'react';
 
-type ModalContextType = {
-    isDialogOpen: boolean;
-    setIsDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    openDialog: () => void;
-    closeDialog: () => void;
-};
-
-export const DialogContext = createContext<ModalContextType | undefined>(undefined);
+export const DialogContext = createContext<ModalContextType | null>(null);
 
 const DialogContextProvider = ({ children }: { children: ReactNode }) => {
     const AllContext = useDialog();

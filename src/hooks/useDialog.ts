@@ -1,15 +1,16 @@
+import { ModalContextType } from "@/types/ModalContextType";
 import { useState } from "react";
 
-const useDialog = () => {
+const useDialog = (): ModalContextType => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [defaultState, setDefaultState] = useState(undefined);
+  const [defaultState, setDefaultState] = useState({});
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [deleteUrl, setDeleteUrl] = useState("");
 
   const openDialog = () => setIsDialogOpen(true);
   const closeDialog = () => {
     setIsDialogOpen(false);
-    if (defaultState) setDefaultState(undefined);
+    if (defaultState) setDefaultState({});
   };
 
   const onOpenDeleteDialog = (url: string) => {

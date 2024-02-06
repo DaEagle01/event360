@@ -1,6 +1,7 @@
+import { TPricingPlan } from "@/types/PricingPlan"
 import { Check, X } from "lucide-react"
 
-const PricingPlan = ({ plan }) => {
+const PricingPlan = ({ plan }: { plan: TPricingPlan }) => {
     return (
         <div className="rounded-lg bg-white relative font-inter">
             {plan.recommended && (
@@ -31,7 +32,7 @@ const PricingPlan = ({ plan }) => {
             </p>
             <div className="px-9 pt-[1.375rem] pb-9 flex flex-col gap-4">
                 {
-                    plan.features.map(item => (
+                    plan.features?.map(item => (
                         <div key={item.name} className="flex items-center gap-[0.375rem] first:pt-1">
                             {item.exists ? (
                                 <div className="bg-[#0B63E5] w-3 h-3 flex justify-center items-center rounded-full p-[2px]">

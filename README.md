@@ -31,7 +31,7 @@ git clone https://github.com/DaEagle01/event360.git
 Go to the project directory
 
 ```bash
-cd event360
+cd  event360
 ```
 
 Install dependencies

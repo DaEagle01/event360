@@ -8,17 +8,17 @@ import { RecentEventsTable } from './RecentEventsTable';
 import { useGetRecentEvents } from '@/api/admin/recentEvent/recentEvent.hook';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
+import { TRecentEvent, TRecentEventInput } from '@/types/RecentEvents';
 
 const RecentEvents = () => {
     const { isDialogOpen, openDialog, closeDialog, defaultState } = useDialogState();
-    const [recentEventData, setRecentEventData] = useState({
-        image: "",
-    })
+    const defData: TRecentEvent = defaultState as TRecentEvent;
+    const [recentEventData, setRecentEventData] = useState({ image: "" })
     const { data: recentEvents, isLoading } = useGetRecentEvents()
     const [dummyData] = useState([{ image: "" }])
     const queryClient = useQueryClient();
     const { mutateAsync: postRecentEvent } = useMutation({
-        mutationFn: async (data) => {
+        mutationFn: async (data: TRecentEventInput) => {
             return axios.post('https://event360-eta.vercel.app/api/v1/recentEvents', data)
         },
         onSuccess: () => {
@@ -27,8 +27,8 @@ const RecentEvents = () => {
     })
 
     const { mutateAsync: updateRecentEvent } = useMutation({
-        mutationFn: ({ id, data }) => {
-            return axios.patch(`https://event360-eta.vercel.app/api/v1/recentEvents/${id}`, data)
+        mutationFn: (data: TRecentEvent) => {
+            return axios.patch(`https://event360-eta.vercel.app/api/v1/recentEvents/${data._id}`, recentEventData)
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['recentEvents'] })
@@ -37,7 +37,7 @@ const RecentEvents = () => {
 
     useEffect(() => {
         if (defaultState) {
-            setRecentEventData({ image: defaultState.image })
+            setRecentEventData({ image: defData.image })
         }
     }, [defaultState])
 
@@ -52,10 +52,9 @@ const RecentEvents = () => {
         setRecentEventData({ image: "", });
     };
 
-
     const handleUpdate = async (e: FormEvent) => {
         e.preventDefault();
-        await updateRecentEvent({ id: defaultState?._id, data: recentEventData });
+        await updateRecentEvent(defData);
         closeDialog();
         setRecentEventData({ image: "", });
     };
@@ -83,7 +82,6 @@ const RecentEvents = () => {
                                 </Label>
                                 <Input
                                     name="image"
-                                    defaultValue="Pedro Duarte"
                                     className="col-span-3"
                                     placeholder='Paste the image link'
                                     value={recentEventData.image}
@@ -98,8 +96,8 @@ const RecentEvents = () => {
                                         </Button>
                                     </DialogClose>
                                 </DialogClose>
-                                <Button type="submit" onClick={defaultState?.image ? handleUpdate : handleSubmit}>
-                                    {defaultState?.image ? "Update Recent Event" : "Add Recent Event"}
+                                <Button type="submit" onClick={defData?.image ? handleUpdate : handleSubmit}>
+                                    {defData?.image ? "Update Recent Event" : "Add Recent Event"}
                                 </Button>
                             </DialogFooter>
                         </form>

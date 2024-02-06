@@ -1,5 +1,6 @@
+import { TClientTestimonial } from "@/types/ClientTestimonial"
 
-const TestimonialCard = ({ item }) => {
+const TestimonialCard = ({ item }: { item: TClientTestimonial }) => {
     return (
         <div className="h-full px-10 pt-10 pb-12 font-inter flex flex-col justify-between">
             <div className="">

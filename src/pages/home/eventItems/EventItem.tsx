@@ -1,5 +1,9 @@
+import { TEvent } from "@/types/Event";
 
-const EventItem = (props) => {
+type EventItemProps = TEvent & {
+    height: string
+}
+const EventItem = (props: EventItemProps) => {
     const { image, title, height } = props;
     return (
         <div className="bg-[#f0f0f5] p-4 flex flex-col gap-3 rounded-md">

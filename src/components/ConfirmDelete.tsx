@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
     AlertDialog,
     AlertDialogAction,
@@ -14,9 +15,15 @@ import axios from "axios";
 import { FormEvent } from "react";
 
 const ConfirmDelete = () => {
-    const { onCloseDeleteDialog, openDeleteDialog, deleteUrl } = useDialogState();
+    let onCloseDeleteDialog: any;
+    let openDeleteDialog: any;
+    let deleteUrl: any;
+    const dialogState = useDialogState();
+    if (dialogState) {
+        ({ onCloseDeleteDialog, openDeleteDialog, deleteUrl } = dialogState);
+    }
     const queryClient = useQueryClient();
-    const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    const { mutateAsync } = useMutation({
         mutationFn: (endPoint) => {
             return axios.delete(`https://event360-eta.vercel.app/api/v1/${endPoint}`)
         },

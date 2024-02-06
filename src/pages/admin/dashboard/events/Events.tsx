@@ -8,18 +8,20 @@ import { EventsTable } from './EventsTable';
 import { useGetEvents } from '@/api/admin/event/event.hook';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
+import { TEvent, TEventDataInput } from '@/types/Event';
 
 const Events = () => {
     const { isDialogOpen, openDialog, closeDialog, defaultState } = useDialogState();
-    const [eventData, setEventData] = useState({
+    const defData: TEvent = defaultState as TEvent;
+    const [eventData, setEventData] = useState<TEventDataInput>({
         title: "",
         image: "",
     })
-    const { data: events, isLoading, isError } = useGetEvents()
-    const [dummyData] = useState([{ title: "", image: "", }])
+    const { data: events, isLoading } = useGetEvents()
+    const [dummyData] = useState<TEventDataInput[]>([{ title: "", image: "", }])
     const queryClient = useQueryClient();
     const { mutateAsync: postEvent } = useMutation({
-        mutationFn: async (data) => {
+        mutationFn: async (data: TEventDataInput) => {
             return axios.post('https://event360-eta.vercel.app/api/v1/events', data)
         },
         onSuccess: () => {
@@ -28,8 +30,8 @@ const Events = () => {
     })
 
     const { mutateAsync: updateEvent } = useMutation({
-        mutationFn: ({ id, data }) => {
-            return axios.patch(`https://event360-eta.vercel.app/api/v1/events/${id}`, data)
+        mutationFn: (data: TEvent) => {
+            return axios.patch(`https://event360-eta.vercel.app/api/v1/events/${data._id}`, eventData)
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['events'] })
@@ -38,7 +40,7 @@ const Events = () => {
 
     useEffect(() => {
         if (defaultState) {
-            setEventData(defaultState)
+            setEventData({ title: defData.title, image: defData.image });
         }
     }, [defaultState])
 
@@ -53,10 +55,9 @@ const Events = () => {
         setEventData({ title: "", image: "", });
     };
 
-
     const handleUpdate = async (e: FormEvent) => {
         e.preventDefault();
-        await updateEvent({ id: defaultState?._id, data: eventData });
+        await updateEvent(defData);
         closeDialog();
         setEventData({ title: "", image: "", });
     };
@@ -72,7 +73,7 @@ const Events = () => {
                 <Dialog open={isDialogOpen}>
                     <DialogContent className="w-[95%] sm:max-w-[525px] max-h-[90vh] overflow-scroll overflow-x-hidden">
                         <DialogHeader>
-                            <DialogTitle>{defaultState?.title ? "Update" : "Add"} Event</DialogTitle>
+                            <DialogTitle>{defData?.title ? "Update" : "Add"} Event</DialogTitle>
                             <DialogDescription>
                                 Make sure to add all details about this service.
                             </DialogDescription>
@@ -112,8 +113,8 @@ const Events = () => {
                                         </Button>
                                     </DialogClose>
                                 </DialogClose>
-                                <Button type="submit" onClick={defaultState?.title ? handleUpdate : handleSubmit}>
-                                    {defaultState?.title ? "Update Event" : "Add Event"}
+                                <Button type="submit" onClick={defData?.title ? handleUpdate : handleSubmit}>
+                                    {defData?.title ? "Update Event" : "Add Event"}
                                 </Button>
                             </DialogFooter>
                         </form>

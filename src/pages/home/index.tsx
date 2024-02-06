@@ -31,7 +31,7 @@ const Home = () => {
     <motion.div
       className="box"
       initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transitionDuration: 700 }}
+      animate={{ opacity: 1 }}
     >
       <div className="pt-16 lg:pt-32 bg-[#F5F6F7]">
         <Container>
