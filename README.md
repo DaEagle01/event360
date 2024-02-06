@@ -25,13 +25,13 @@ To run this project, you need to have Node.js and npm installed on your machine.
 Clone this repository:
 
 ```bash
-git clone
+git clone https://github.com/DaEagle01/event360.git
 ```
 
 Go to the project directory
 
 ```bash
-cd
+cd event360
 ```
 
 Install dependencies
@@ -47,5 +47,3 @@ npm  run  dev
 ```
 
 - Open your browser and go to `http://localhost:3000` to see the landing page
-# event360
-# event360
