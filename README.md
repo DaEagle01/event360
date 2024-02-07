@@ -1,5 +1,7 @@
 # Event 360
 
+**Live Link:** [https://event-manager-360.vercel.app/](https://event-manager-360.vercel.app/)
+
 This project is a dynamic and responsive dashboard for event management with a beautiful landing page. The dashboard allows the user to create, edit, delete, and view services, events and recent events. The landing page shows the services, events and recent events images by fetching from the api. The dashboard is designed to be user-friendly and adaptable to different screen sizes and devices.
 
 ## Project Decisions
