@@ -42,7 +42,7 @@ const Testimonials = () => {
                         <CarouselPrevious className="left-[65.5%] sm:left-[88.5%] right-[100%] -translate-y-[18.5rem] sm:-translate-y-[21.5rem] text-[#0B63E5] hover:text-white bg-[#F0F5FF] hover:bg-[#0B63E5] border-none transition-all h-10 sm:h-16 w-10 sm:w-16" >
                             <ArrowLeft className="h-8 w-8" />
                         </CarouselPrevious>
-                        <CarouselNext className="left-[85%] right-0 -translate-y-[18.5rem] sm:-translate-y-[21.5rem] text-[#0B63E5] hover:text-white bg-[#F0F5FF] hover:bg-[#0B63E5] border-none transition-all h-10 sm:h-16 w-10 sm:w-16" >
+                        <CarouselNext className="left-[85%] sm:left-[95%] right-0 -translate-y-[18.5rem] sm:-translate-y-[21.5rem] text-[#0B63E5] hover:text-white bg-[#F0F5FF] hover:bg-[#0B63E5] border-none transition-all h-10 sm:h-16 w-10 sm:w-16" >
                             <ArrowRight className="h-8 w-8" />
                         </CarouselNext>
                     </Carousel>
