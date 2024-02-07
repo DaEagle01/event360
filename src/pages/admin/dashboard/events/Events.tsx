@@ -39,7 +39,7 @@ const Events = () => {
     })
 
     useEffect(() => {
-        if (defaultState) {
+        if (defData?.title) {
             setEventData({ title: defData.title, image: defData.image });
         }
     }, [defaultState])

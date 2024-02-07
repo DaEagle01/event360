@@ -36,7 +36,7 @@ const RecentEvents = () => {
     })
 
     useEffect(() => {
-        if (defaultState) {
+        if (defData?.image) {
             setRecentEventData({ image: defData.image })
         }
     }, [defaultState])
@@ -70,7 +70,7 @@ const RecentEvents = () => {
                 <Dialog open={isDialogOpen}>
                     <DialogContent className="w-[95%] sm:max-w-[525px] max-h-[90vh] overflow-scroll overflow-x-hidden">
                         <DialogHeader>
-                            <DialogTitle>Add Recent Event</DialogTitle>
+                            <DialogTitle>{defData?.image ? "Update" : "Add"} Recent Event</DialogTitle>
                             <DialogDescription>
                                 Make sure to add all details about this service.
                             </DialogDescription>

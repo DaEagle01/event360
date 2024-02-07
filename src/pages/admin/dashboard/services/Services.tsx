@@ -46,7 +46,8 @@ const Services = () => {
     })
 
     useEffect(() => {
-        if (defaultState) {
+        console.log('def', defData)
+        if (defData?.name) {
             setServices(defData)
             setFeatures(defData.features)
         }
@@ -98,9 +99,9 @@ const Services = () => {
                     Add Service
                 </Button>
                 <Dialog open={isDialogOpen}>
-                    <DialogContent className="w-[95%] sm:max-w-[525px] max-h-[90vh] overflow-scroll overflow-x-hidden roundedlg">
+                    <DialogContent className="w-[95%] sm:max-w-[525px] max-h-[90vh] overflow-scroll overflow-x-hidden rounded-lg">
                         <DialogHeader>
-                            <DialogTitle>Add Service</DialogTitle>
+                            <DialogTitle>{defData?.name ? "Update" : "Add"} Service</DialogTitle>
                             <DialogDescription>
                                 Make sure to add all details about this service.
                             </DialogDescription>
