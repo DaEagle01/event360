@@ -175,13 +175,13 @@ const Services = () => {
                             ))}
                             <DialogFooter className='pt-8'>
                                 <DialogClose>
-                                    <DialogClose asChild>
+                                    <DialogClose asChild className='w-full sm:max-w-max'>
                                         <Button variant="outline" onClick={closeDialog}>
                                             Cancel
                                         </Button>
                                     </DialogClose>
                                 </DialogClose>
-                                <Button type="submit" onClick={defData?.name ? handleUpdate : handleSubmit}>
+                                <Button type="submit" onClick={defData?.name ? handleUpdate : handleSubmit} className='mb-4 sm:mb-0'>
                                     {defData?.name ? "Update Service" : "Add Service"}
                                 </Button>
                             </DialogFooter>

@@ -107,13 +107,13 @@ const Events = () => {
                             </div>
                             <DialogFooter className='pt-8'>
                                 <DialogClose>
-                                    <DialogClose asChild>
+                                    <DialogClose asChild className='w-full sm:max-w-max'>
                                         <Button variant="outline" onClick={closeDialog}>
                                             Cancel
                                         </Button>
                                     </DialogClose>
                                 </DialogClose>
-                                <Button type="submit" onClick={defData?.title ? handleUpdate : handleSubmit}>
+                                <Button type="submit" onClick={defData?.title ? handleUpdate : handleSubmit} className='mb-4 sm:mb-0'>
                                     {defData?.title ? "Update Event" : "Add Event"}
                                 </Button>
                             </DialogFooter>
