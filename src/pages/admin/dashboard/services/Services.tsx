@@ -46,7 +46,6 @@ const Services = () => {
     })
 
     useEffect(() => {
-        console.log('def', defData)
         if (defData?.name) {
             setServices(defData)
             setFeatures(defData.features)
