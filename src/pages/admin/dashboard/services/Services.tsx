@@ -138,7 +138,6 @@ const Services = () => {
                                 </Label>
                                 <Input
                                     name="image"
-                                    defaultValue="Pedro Duarte"
                                     className="col-span-3"
                                     placeholder='Paste the image link'
                                     value={services.image}
